@@ -15,19 +15,33 @@ class Taka
         } else {
             $arr = explode("$delimiter", $string);
             $sum = 0;
+            $arrException = array();
             foreach ($arr as $number) {
                 if (strpos($number, "\n")) {
                     $arrNumber = explode("\n", $number);
                     foreach ($arrNumber as $subNumber) {
                         if (is_numeric($subNumber)) {
-                            $sum += $subNumber;
+                            if ($subNumber >= 0) {
+                                $sum += $subNumber;
+                            } else {
+                                $arrException[] = $subNumber;
+                            }
+
                         }
                     }
                 }
                 if (is_numeric($number)) {
-                    $sum += $number;
+                    if ($number >= 0) {
+                        $sum += $number;
+                    } else {
+                        $arrException[] = $number;
+                    }
                 }
             }
+            if (count($arrException) > 0) {
+                var_dump($arrException);
+            }
+
             return $sum;
         }
 

@@ -18,6 +18,9 @@ class taka_test extends PHPUnit_Framework_TestCase
     public function addDataProvider()
     {
         return array(
+            array("","0"),
+            array("1","1"),
+            array("1,2","3"),
             array("1,1,2,3, 4","11")
         );
     }

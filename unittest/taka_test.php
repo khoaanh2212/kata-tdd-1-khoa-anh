@@ -18,18 +18,21 @@ class taka_test extends PHPUnit_Framework_TestCase
     public function addDataProvider()
     {
         return array(
-            array("","0"),
-            array("1","1"),
-            array("1,2","3"),
-            array("1,1,2,3, 4","11")
+            array("", "0"),
+            array("1", "1"),
+            array("1,2", "3"),
+            array("1,1,2,3, 4", "11"),
+            array("1\n2,3", "6"),
+            array("///;\n1;2;3", "6", ";")
         );
     }
+
     /**
      * @dataProvider addDataProvider
      * */
-    public function testAdd($string,$expected)
+    public function testAdd($string, $expected, $delimiter = ",")
     {
-        $result = $this->Taka->Add($string);
-        $this->assertEquals($expected,$result);
+        $result = $this->Taka->Add($string,$delimiter);
+        $this->assertEquals($expected, $result);
     }
 }

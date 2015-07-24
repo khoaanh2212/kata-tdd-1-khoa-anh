@@ -8,14 +8,22 @@
  */
 class Taka
 {
-    public function Add($string)
+    public function Add($string, $delimiter = ",")
     {
         if (trim($string) == "") {
             return 0;
         } else {
-            $arr = explode(",", $string);
+            $arr = explode("$delimiter", $string);
             $sum = 0;
             foreach ($arr as $number) {
+                if (strpos($number, "\n")) {
+                    $arrNumber = explode("\n", $number);
+                    foreach ($arrNumber as $subNumber) {
+                        if (is_numeric($subNumber)) {
+                            $sum += $subNumber;
+                        }
+                    }
+                }
                 if (is_numeric($number)) {
                     $sum += $number;
                 }

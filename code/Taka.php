@@ -21,9 +21,9 @@ class Taka
                     $arrNumber = explode("\n", $number);
                     foreach ($arrNumber as $subNumber) {
                         if (is_numeric($subNumber)) {
-                            if ($subNumber >= 0) {
+                            if ($subNumber >= 0 && $subNumber <= 1000) {
                                 $sum += $subNumber;
-                            } else {
+                            } elseif ($subNumber < 0) {
                                 $arrException[] = $subNumber;
                             }
 
@@ -31,9 +31,9 @@ class Taka
                     }
                 }
                 if (is_numeric($number)) {
-                    if ($number >= 0) {
+                    if ($number >= 0 && $number <= 1000) {
                         $sum += $number;
-                    } else {
+                    } elseif ($number < 0) {
                         $arrException[] = $number;
                     }
                 }

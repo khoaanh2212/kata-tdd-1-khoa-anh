@@ -35,6 +35,7 @@ class Taka
                                 if ($str_delimiter[$i] == "]" && $start >= 0) {
                                     $delimiter = substr($str_delimiter, $start + 1, $i - $start - 1);
                                     $arrDelimiter[] = $delimiter;
+                                    $start = -1;
                                 }
                             }
                         } else {

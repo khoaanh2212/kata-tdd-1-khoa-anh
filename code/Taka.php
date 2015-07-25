@@ -8,11 +8,25 @@
  */
 class Taka
 {
-    public function Add($string, $delimiter = ",")
+    public function Add($string)
     {
         if (trim($string) == "") {
             return 0;
         } else {
+            $delimiter = ",";
+            $arrGeneral = array();
+            $has_delimiter = false;
+            //get delimiter
+            if (strpos($string, "//") === 0) {
+                $delimiter = substr($string, 2, 1);
+                if (is_null($delimiter)) {
+                    return false;
+                }
+                $has_delimiter = true;
+            }
+            if ($has_delimiter) {
+                $string = substr($string, 3);
+            }
             $arr = explode("$delimiter", $string);
             $sum = 0;
             $arrException = array();

@@ -14,20 +14,48 @@ class Taka
             return 0;
         } else {
             $delimiter = ",";
-            $arrGeneral = array();
             $has_delimiter = false;
+            $arrDelimiter = [];
             //get delimiter
             if (strpos($string, "//") === 0) {
-                $delimiter = substr($string, 2, 1);
-                if (is_null($delimiter)) {
-                    return false;
+                $end_define_delimiter = strpos($string, "\n");
+                if ($end_define_delimiter !== false) {
+                    $str_delimiter = substr($string, 2, $end_define_delimiter - 2);
+                    if (is_null($str_delimiter)) {
+                        return false;
+                    } else {
+
+                        if (strpos($str_delimiter, "[") !== false) {
+                            $start = -1;
+                            $end = -1;
+                            for ($i = 0; $i < strlen($str_delimiter); $i++) {
+                                if ($str_delimiter[$i] == "[") {
+                                    $start = $i;
+                                }
+                                if ($str_delimiter[$i] == "]" && $start >= 0) {
+                                    $delimiter = substr($str_delimiter, $start + 1, $i - $start - 1);
+                                    $arrDelimiter[] = $delimiter;
+                                }
+                            }
+                        } else {
+                            $arrDelimiter[] = $str_delimiter;
+                        }
+
+                    }
                 }
                 $has_delimiter = true;
             }
             if ($has_delimiter) {
-                $string = substr($string, 3);
+                if (!is_null($end_define_delimiter)) {
+                    $string = substr($string, $end_define_delimiter + 1);
+                }
+            } else {
+                $arrDelimiter[] = $delimiter;
             }
-            $arr = explode("$delimiter", $string);
+            foreach ($arrDelimiter as $item) {
+                $string = str_replace($item, ",", $string);
+            }
+            $arr = explode(",", $string);
             $sum = 0;
             $arrException = array();
             foreach ($arr as $number) {

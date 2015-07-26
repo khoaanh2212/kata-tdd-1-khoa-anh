@@ -28,7 +28,7 @@ class taka_test extends PHPUnit_Framework_TestCase
             array("//;\n1;2;3;1001", "6"),
             array("//[***]\n1***2***3","6"),
             array("//[*][%]\n1*2%3","6"),
-            array("//[***][%%%]\n1***2%%%3","6")
+            array("//[***][%%%][%%%%]\n1***2%%%%3%%%3","9")
         );
     }
 

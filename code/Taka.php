@@ -34,7 +34,9 @@ class Taka
                                 }
                                 if ($str_delimiter[$i] == "]" && $start >= 0) {
                                     $delimiter = substr($str_delimiter, $start + 1, $i - $start - 1);
-                                    $arrDelimiter[] = $delimiter;
+                                    if (in_array($delimiter, $arrDelimiter) === false) {
+                                        $arrDelimiter[] = $delimiter;
+                                    }
                                     $start = -1;
                                 }
                             }
@@ -53,6 +55,8 @@ class Taka
             } else {
                 $arrDelimiter[] = $delimiter;
             }
+            //sort by string lenght delimiter
+            array_multisort(array_map('strlen', $arrDelimiter), SORT_DESC, $arrDelimiter);
             foreach ($arrDelimiter as $item) {
                 $string = str_replace($item, ",", $string);
             }
